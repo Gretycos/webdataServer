@@ -17,21 +17,21 @@ public class ServiceImplement implements ServiceInterface{
 
     @Override
     public Page<Anime> findAnimesBySourceOrderByTrendDesc(List<String> source, Pageable pageable) {
-        return null;
+        return animeDaoInterface.findAllBySourceInOrderByTrendDesc(source,pageable);
     }
 
     @Override
     public Page<Anime> findAnimesBySourceOrderByTrendAsc(List<String> source, Pageable pageable) {
-        return null;
+        return animeDaoInterface.findAllBySourceInOrderByTrendAsc(source,pageable);
     }
 
     @Override
     public Page<Anime> findAnimesByTitleAndSourceOrderByTrendDesc(String title, List<String> source, Pageable pageable) {
-        return null;
+        return animeDaoInterface.findAllByTitleAndSourceInOrderByTrendDesc(title,source,pageable);
     }
 
     @Override
     public Page<Anime> findAnimesByTitleAndSourceOrderByTrendAsc(String title, List<String> source, Pageable pageable) {
-        return null;
+        return animeDaoInterface.findAllByTitleAndSourceInOrderByTrendAsc(title,source,pageable);
     }
 }

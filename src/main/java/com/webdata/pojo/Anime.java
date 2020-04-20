@@ -22,6 +22,8 @@ public class Anime {
     private String play_count;
     @Column(name = "source")
     private String source;
+    @Column(name = "trend")
+    private double trend;
 
     public Anime(){}
 
@@ -81,6 +83,14 @@ public class Anime {
         this.source = source;
     }
 
+    public double getTrend() {
+        return trend;
+    }
+
+    public void setTrend(double trend) {
+        this.trend = trend;
+    }
+
     @Override
     public String toString() {
         return "Anime{" +
@@ -91,6 +101,7 @@ public class Anime {
                 ", cover='" + cover + '\'' +
                 ", play_count='" + play_count + '\'' +
                 ", source='" + source + '\'' +
+                ", trend=" + trend +
                 '}';
     }
 }
