@@ -17,7 +17,7 @@ public interface AnimeDaoInterface extends JpaRepository<Anime,String> {
 
     Page<Anime> findAllBySourceInOrderByTrendDesc(Collection<String> source, Pageable pageable);
     Page<Anime> findAllBySourceInOrderByTrendAsc(Collection<String> source, Pageable pageable);
-    Page<Anime> findAllByTitleAndSourceInOrderByTrendDesc(String title, Collection<String> source, Pageable pageable);
-    Page<Anime> findAllByTitleAndSourceInOrderByTrendAsc(String title, Collection<String> source, Pageable pageable);
+    Page<Anime> findAllByTitleLikeAndSourceInOrderByTrendDesc(String title, Collection<String> source, Pageable pageable);
+    Page<Anime> findAllByTitleLikeAndSourceInOrderByTrendAsc(String title, Collection<String> source, Pageable pageable);
 
 }

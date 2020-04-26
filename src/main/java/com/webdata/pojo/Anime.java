@@ -4,6 +4,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.math.BigDecimal;
 
 @Entity
 @Table(name = "anime")
@@ -23,7 +24,7 @@ public class Anime {
     @Column(name = "source")
     private String source;
     @Column(name = "trend")
-    private double trend;
+    private BigDecimal trend;
 
     public Anime(){}
 
@@ -83,11 +84,11 @@ public class Anime {
         this.source = source;
     }
 
-    public double getTrend() {
+    public BigDecimal getTrend() {
         return trend;
     }
 
-    public void setTrend(double trend) {
+    public void setTrend(BigDecimal trend) {
         this.trend = trend;
     }
 

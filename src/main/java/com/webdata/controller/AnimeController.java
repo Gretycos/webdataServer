@@ -27,50 +27,52 @@ public class AnimeController {
     * page=int
     * */
     @RequestMapping(value = "/animes", method = RequestMethod.POST)
-    public Object findAnimes(@RequestParam Map<String,Object> params){
-        String title = (String)params.get("title");
-        String code = (String) params.get("code");
-        int page = (Integer) params.get("page");
-        PageRequest pageRequest = PageRequest.of(page,20);
+    public Object findAnimes(@RequestParam Map<String,String> params){
+//        System.out.println(params);
+        String title = "%"+params.get("title")+"%";
+        String code = params.get("code");
+        int page = Integer.parseInt(params.get("page")) - 1;
+        if (page<0) page = 0;
+        PageRequest pageRequest = PageRequest.of(page,30);
 
         Map<String,Object> res = new HashMap<>();
         if(title.equals("")){//无搜索
             switch (code){
-                case "00":
+                case "00": // 来源: bilibili&tencent 排序:热度降序
                     res.put("data",serviceInterface.findAnimesBySourceOrderByTrendDesc(l0,pageRequest));
                     break;
-                case "01":
+                case "01": // 来源: bilibili&tencent 排序:热度升序
                     res.put("data",serviceInterface.findAnimesBySourceOrderByTrendAsc(l0,pageRequest));
                     break;
-                case "10":
+                case "10": // 来源: bilibili 排序:热度降序
                      res.put("data",serviceInterface.findAnimesBySourceOrderByTrendDesc(l1,pageRequest));
                     break;
-                case "11":
+                case "11": // 来源: bilibili 排序:热度升序
                     res.put("data",serviceInterface.findAnimesBySourceOrderByTrendAsc(l1,pageRequest));
                     break;
-                case "20":
+                case "20": // 来源: tencent 排序:热度降序
                     res.put("data",serviceInterface.findAnimesBySourceOrderByTrendDesc(l2,pageRequest));
                     break;
-                case "21":
+                case "21": // 来源: tencent 排序:热度升序
                     res.put("data",serviceInterface.findAnimesBySourceOrderByTrendAsc(l2,pageRequest));
                     break;
             }
         }else{//搜索
             switch (code){
-                case "00":
+                case "00": // 来源: bilibili&tencent 排序:热度降序
                     res.put("data",serviceInterface.findAnimesByTitleAndSourceOrderByTrendDesc(title,l0,pageRequest));
                     break;
-                case "01":
+                case "01": // 来源: bilibili&tencent 排序:热度升序
                     res.put("data",serviceInterface.findAnimesByTitleAndSourceOrderByTrendAsc(title,l0,pageRequest));
                     break;
-                case "10":
+                case "10": // 来源: bilibili 排序:热度降序
                     res.put("data",serviceInterface.findAnimesByTitleAndSourceOrderByTrendDesc(title,l1,pageRequest));
                     break;
-                case "11":
+                case "11": // 来源: bilibili 排序:热度升序
                     res.put("data",serviceInterface.findAnimesByTitleAndSourceOrderByTrendAsc(title,l1,pageRequest));
-                case "20":
+                case "20": // 来源: tencent 排序:热度降序
                     res.put("data",serviceInterface.findAnimesByTitleAndSourceOrderByTrendDesc(title,l2,pageRequest));
-                case "21":
+                case "21": // 来源: tencent 排序:热度升序
                     res.put("data",serviceInterface.findAnimesByTitleAndSourceOrderByTrendAsc(title,l2,pageRequest));
             }
         }

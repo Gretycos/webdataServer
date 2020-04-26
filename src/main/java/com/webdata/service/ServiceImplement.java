@@ -27,11 +27,11 @@ public class ServiceImplement implements ServiceInterface{
 
     @Override
     public Page<Anime> findAnimesByTitleAndSourceOrderByTrendDesc(String title, List<String> source, Pageable pageable) {
-        return animeDaoInterface.findAllByTitleAndSourceInOrderByTrendDesc(title,source,pageable);
+        return animeDaoInterface.findAllByTitleLikeAndSourceInOrderByTrendDesc(title,source,pageable);
     }
 
     @Override
     public Page<Anime> findAnimesByTitleAndSourceOrderByTrendAsc(String title, List<String> source, Pageable pageable) {
-        return animeDaoInterface.findAllByTitleAndSourceInOrderByTrendAsc(title,source,pageable);
+        return animeDaoInterface.findAllByTitleLikeAndSourceInOrderByTrendAsc(title,source,pageable);
     }
 }
