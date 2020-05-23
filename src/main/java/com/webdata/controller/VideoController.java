@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-public class MovieController {
+public class VideoController {
     @Autowired
     private ServiceInterface serviceInterface;
 
@@ -28,11 +28,72 @@ public class MovieController {
      * order=0:desc,1:asc
      * page=int
      * */
-    @RequestMapping(value = "/movies", method = RequestMethod.POST)
+
+    // 查询动漫
+    @RequestMapping(value = "/animes", method = RequestMethod.POST)
     public Object findAnimes(@RequestParam Map<String,String> params){
-//        System.out.println(params);
         String title = "%"+params.get("title")+"%";
-//        System.out.println(title);
+        String code = params.get("code");//方式 来源 升降序
+        int page = Integer.parseInt(params.get("page")) - 1;
+        if (page<0) page = 0;
+        PageRequest pageRequest = PageRequest.of(page,30);
+
+        Map<String,Object> res = new HashMap<>();
+        if(title.equals("%null%")){//无搜索
+            switch (code){
+                case "000": // 来源: bilibili&tencent 排序:热度降序
+                    res.put("data",serviceInterface.findAnimesBySourceOrderByTrendDesc(l0,pageRequest));
+                    break;
+                case "001": // 来源: bilibili&tencent 排序:热度升序
+                    res.put("data",serviceInterface.findAnimesBySourceOrderByTrendAsc(l0,pageRequest));
+                    break;
+                case "010": // 来源: bilibili 排序:热度降序
+                    res.put("data",serviceInterface.findAnimesBySourceOrderByTrendDesc(l1,pageRequest));
+                    break;
+                case "011": // 来源: bilibili 排序:热度升序
+                    res.put("data",serviceInterface.findAnimesBySourceOrderByTrendAsc(l1,pageRequest));
+                    break;
+                case "020": // 来源: tencent 排序:热度降序
+                    res.put("data",serviceInterface.findAnimesBySourceOrderByTrendDesc(l2,pageRequest));
+                    break;
+                case "021": // 来源: tencent 排序:热度升序
+                    res.put("data",serviceInterface.findAnimesBySourceOrderByTrendAsc(l2,pageRequest));
+                    break;
+                default:
+                    res.put("data",null);
+            }
+        }else{//搜索
+            switch (code){
+                case "000": // 来源: bilibili&tencent 排序:热度降序
+                    res.put("data",serviceInterface.findAnimesByTitleAndSourceOrderByTrendDesc(title,l0,pageRequest));
+                    break;
+                case "001": // 来源: bilibili&tencent 排序:热度升序
+                    res.put("data",serviceInterface.findAnimesByTitleAndSourceOrderByTrendAsc(title,l0,pageRequest));
+                    break;
+                case "010": // 来源: bilibili 排序:热度降序
+                    res.put("data",serviceInterface.findAnimesByTitleAndSourceOrderByTrendDesc(title,l1,pageRequest));
+                    break;
+                case "011": // 来源: bilibili 排序:热度升序
+                    res.put("data",serviceInterface.findAnimesByTitleAndSourceOrderByTrendAsc(title,l1,pageRequest));
+                    break;
+                case "020": // 来源: tencent 排序:热度降序
+                    res.put("data",serviceInterface.findAnimesByTitleAndSourceOrderByTrendDesc(title,l2,pageRequest));
+                    break;
+                case "021": // 来源: tencent 排序:热度升序
+                    res.put("data",serviceInterface.findAnimesByTitleAndSourceOrderByTrendAsc(title,l2,pageRequest));
+                    break;
+                default:
+                    res.put("data",null);
+            }
+        }
+        return JSON.toJSONString(res);
+    }
+
+
+    //查询电影
+    @RequestMapping(value = "/movies", method = RequestMethod.POST)
+    public Object findMovies(@RequestParam Map<String,String> params){
+        String title = "%"+params.get("title")+"%";
         String code = params.get("code");//方式 来源 升降序
         int page = Integer.parseInt(params.get("page")) - 1;
         if (page<0) page = 0;

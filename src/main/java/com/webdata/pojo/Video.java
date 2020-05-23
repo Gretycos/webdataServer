@@ -1,16 +1,18 @@
 package com.webdata.pojo;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.math.BigDecimal;
 
 @Entity
-@Table(name = "movie")
-public class Movie {
+@Table(name = "video_data")
+@IdClass(VideoKeyClass.class)
+public class Video {
     @Id
+    @Column(name = "id")
     private String id;
+    @Id
+    @Column(name = "kind")
+    private String kind;
     @Column(name = "title")
     private String title;
     @Column(name = "link")
@@ -30,6 +32,14 @@ public class Movie {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getKind() {
+        return kind;
+    }
+
+    public void setKind(String kind) {
+        this.kind = kind;
     }
 
     public String getTitle() {
@@ -82,8 +92,9 @@ public class Movie {
 
     @Override
     public String toString() {
-        return "Movie{" +
+        return "Video{" +
                 "id='" + id + '\'' +
+                ", kind='" + kind + '\'' +
                 ", title='" + title + '\'' +
                 ", link='" + link + '\'' +
                 ", cover='" + cover + '\'' +

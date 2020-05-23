@@ -1,61 +1,63 @@
 package com.webdata.service;
 
-import com.webdata.dao.AnimeDaoInterface;
-import com.webdata.dao.MovieDaoInterface;
-import com.webdata.pojo.Anime;
-import com.webdata.pojo.Movie;
+import com.webdata.dao.VideoDaoInterface;
+import com.webdata.pojo.Video;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Map;
 
 @Service
 public class ServiceImplement implements ServiceInterface{
+//    @Autowired
+//    private AnimeDaoInterface animeDaoInterface;
+//    @Autowired
+//    private MovieDaoInterface movieDaoInterface;
     @Autowired
-    private AnimeDaoInterface animeDaoInterface;
-    @Autowired
-    private MovieDaoInterface movieDaoInterface;
+    private VideoDaoInterface videoDaoInterface;
+
+    private final String ANIMATION = "animation";
+    private final String MOVIE = "movie";
 
     @Override
-    public Page<Anime> findAnimesBySourceOrderByTrendDesc(List<String> source, Pageable pageable) {
-        return animeDaoInterface.findAllBySourceInOrderByTrendDesc(source,pageable);
+    public Page<Video> findAnimesBySourceOrderByTrendDesc(List<String> source, Pageable pageable) {
+        return videoDaoInterface.findAllByKindIsAndSourceInOrderByTrendDesc(ANIMATION,source,pageable);
     }
 
     @Override
-    public Page<Anime> findAnimesBySourceOrderByTrendAsc(List<String> source, Pageable pageable) {
-        return animeDaoInterface.findAllBySourceInOrderByTrendAsc(source,pageable);
+    public Page<Video> findAnimesBySourceOrderByTrendAsc(List<String> source, Pageable pageable) {
+        return videoDaoInterface.findAllByKindIsAndSourceInOrderByTrendAsc(ANIMATION,source,pageable);
     }
 
     @Override
-    public Page<Anime> findAnimesByTitleAndSourceOrderByTrendDesc(String title, List<String> source, Pageable pageable) {
-        return animeDaoInterface.findAllByTitleLikeAndSourceInOrderByTrendDesc(title,source,pageable);
+    public Page<Video> findAnimesByTitleAndSourceOrderByTrendDesc(String title, List<String> source, Pageable pageable) {
+        return videoDaoInterface.findAllByKindIsAndTitleLikeAndSourceInOrderByTrendDesc(ANIMATION,title,source,pageable);
     }
 
     @Override
-    public Page<Anime> findAnimesByTitleAndSourceOrderByTrendAsc(String title, List<String> source, Pageable pageable) {
-        return animeDaoInterface.findAllByTitleLikeAndSourceInOrderByTrendAsc(title,source,pageable);
+    public Page<Video> findAnimesByTitleAndSourceOrderByTrendAsc(String title, List<String> source, Pageable pageable) {
+        return videoDaoInterface.findAllByKindIsAndTitleLikeAndSourceInOrderByTrendAsc(ANIMATION,title,source,pageable);
     }
 
     @Override
-    public Page<Movie> findMoviesBySourceOrderByTrendDesc(List<String> source, Pageable pageable) {
-        return movieDaoInterface.findAllBySourceInOrderByTrendDesc(source,pageable);
+    public Page<Video> findMoviesBySourceOrderByTrendDesc(List<String> source, Pageable pageable) {
+        return videoDaoInterface.findAllByKindIsAndSourceInOrderByTrendDesc(MOVIE,source,pageable);
     }
 
     @Override
-    public Page<Movie> findMoviesBySourceOrderByTrendAsc(List<String> source, Pageable pageable) {
-        return movieDaoInterface.findAllBySourceInOrderByTrendAsc(source,pageable);
+    public Page<Video> findMoviesBySourceOrderByTrendAsc(List<String> source, Pageable pageable) {
+        return videoDaoInterface.findAllByKindIsAndSourceInOrderByTrendAsc(MOVIE,source,pageable);
     }
 
     @Override
-    public Page<Movie> findMoviesByTitleAndSourceOrderByTrendDesc(String title, List<String> source, Pageable pageable) {
-        return movieDaoInterface.findAllByTitleLikeAndSourceInOrderByTrendDesc(title,source,pageable);
+    public Page<Video> findMoviesByTitleAndSourceOrderByTrendDesc(String title, List<String> source, Pageable pageable) {
+        return videoDaoInterface.findAllByKindIsAndTitleLikeAndSourceInOrderByTrendDesc(MOVIE,title,source,pageable);
     }
 
     @Override
-    public Page<Movie> findMoviesByTitleAndSourceOrderByTrendAsc(String title, List<String> source, Pageable pageable) {
-        return movieDaoInterface.findAllByTitleLikeAndSourceInOrderByTrendAsc(title,source,pageable);
+    public Page<Video> findMoviesByTitleAndSourceOrderByTrendAsc(String title, List<String> source, Pageable pageable) {
+        return videoDaoInterface.findAllByKindIsAndTitleLikeAndSourceInOrderByTrendAsc(MOVIE,title,source,pageable);
     }
 }
